@@ -12,7 +12,7 @@ const Funcionality = () => {
     let finalString = "";
     const string = stringInsert.split(" ");
     string.forEach((s) => {
-      finalString += requirement1(s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) + " ";
+      finalString += requirement1(s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) + " "; //removed accentuation
     });
 
     if (finalString.length > 0)
@@ -26,7 +26,7 @@ const Funcionality = () => {
 
     stringArr.forEach((s) => {
       if (s.search(regexOnlyCharacter)) {
-        flagSymbol = true;
+        flagSymbol = true; // there is a symbol
       }
     });
     if (!flagSymbol) {
@@ -40,10 +40,10 @@ const Funcionality = () => {
     let symbol = "";
     string.forEach((s, i, obj) => {
       if (!s.search(regexOnlyCharacter)) {
-        symbol += s;
+        symbol += s; //saving symbols to put on the end
       }
     });
-    const result = string.filter((x) => x.search(regexOnlyCharacter));
+    const result = string.filter((x) => x.search(regexOnlyCharacter)); //removed symbol from this string
     console.log(
       "requirement2: " +
         result.join("") +
@@ -55,11 +55,11 @@ const Funcionality = () => {
   const requirement3 = (string) => {
     let flagUppercase = false;
     if (string[0] !== string[0].toLowerCase()) {
-      flagUppercase = true;
+      flagUppercase = true; //first letter is uppercase
     }
     let response = requirement6(string);
     if (flagUppercase)
-      response = response.charAt(0).toUpperCase() + response.slice(1);
+      response = response.charAt(0).toUpperCase() + response.slice(1); //uppercase aplied
     console.log("requirement3: " + response);
     return response;
   };
@@ -91,7 +91,7 @@ const Funcionality = () => {
 
     string.forEach((s) => {
       if (regexConsonants.test(s)) {
-        flagConsonant = true;
+        flagConsonant = true; // there is a consonant
       }
     });
     let response = string.join("");
@@ -102,6 +102,19 @@ const Funcionality = () => {
       console.log("requirement6: " + response);
       return requirement4(response);
     }
+
+    /*
+      Improvements that should be made:
+        This code should support accentuation, been treated as letters. 
+          How would I do it?
+            Change the regex
+        All symbols should preserve it's positioning, instead of being put at the end of the string.
+          How would I do it?
+              Every string should sent to requirement1 should end at the first symbol
+
+      I have to finish somethings from work that came up, so I can't make this improvements, but I believe you get the idea.
+
+    */
   };
 
   return (
